@@ -1,0 +1,14 @@
+service: hello-world-python
+
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: python3.6
+  profile: liyakat
+  region: us-east-1
+
+
+functions:
+  hello:
+    handler: handler.hello
