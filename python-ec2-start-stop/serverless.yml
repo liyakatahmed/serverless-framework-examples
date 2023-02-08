@@ -1,0 +1,29 @@
+service: python-ec2-start-stop
+
+# You can pin your service to only deploy with a specific Serverless version
+# Check out our docs for more details
+# frameworkVersion: "=X.X.X"
+
+provider:
+  name: aws
+  runtime: python3.9
+  region: us-east-1
+  profile: liyakat
+  memorySize: 128
+  iamRoleStatements:
+   - Effect: "Allow"
+     Action:
+       - "ec2:*"
+     Resource: "*"
+
+functions:
+  start-ec2:
+    handler: handler.start_ec2
+    timeout: 60
+    events:
+      - schedule: cron(30 3 * * ? *) # run at 14:30 PM UTC every day (9 am IST)
+  stop-ec2:
+    handler: handler.stop_ec2
+    timeout: 60
+    events:
+      - schedule: cron(30 11 * * ? *) # run at 22:30 PM UTC every day (5 pm IST)
